@@ -45,10 +45,9 @@ tic;
 loss=LossRLR(X,y,w,reg);
 
 it=1;
-gnr = 1;
 err = 0;
 
-while (it<=maxit && (abs(gnr) > eps))
+while (it<=maxit)
     %vectors updating
     if (it==1)
         timeVec(it) = 0;
