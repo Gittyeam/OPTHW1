@@ -1,5 +1,4 @@
-
-function PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err)
+function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err)
 
 %------------------------------------------------------------------
 %This function print the results of a method in terms of time, iterations
@@ -9,7 +8,7 @@ function PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,
 if(err==0)
     fprintf(1,strcat(name,' Loss            = %10.3e\n'),loss);
     fprintf(1,strcat(name,' Iterations      = %d\n'),it);
-    fprintf(1,strcat(name,' ||gr||^2        = %%10.3e\n'),gnrit(it));
+    fprintf(1,strcat(name,' ||gr||^2        = %10.3e\n'),gnrit(it));
     fprintf(1,strcat(name,'  CPU time       = %10.3e\n'), ttot);
     
     %plot loss as function of iter and time 
@@ -54,7 +53,7 @@ if(err==0)
     fprintf(1,strcat(name,' train F1        = %4.2f\n'),F1);
     fprintf(1,strcat(name,' train accuracy  = %4.2f\n'),acc);
     
-    t=[timeVec(1:100:it) ttot];
+    t=timeVec(1:100:it);
     
     figure('Name',strcat('4 - ',name))
     plot(t,accVec,'b-')
