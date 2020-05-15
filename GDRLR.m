@@ -73,10 +73,12 @@ while (it<=maxit && (abs(gnr) > eps))
     alpha=1/L;
     w=w+alpha*d;
     loss = LossRLR(X,y,w,reg);
+    
     if(it==1)
         wVec=w;
     end
-    if(mod(it-1,100)==0)
+    
+    if((it>1)&& (mod(it-1,100)==0))
         wVec(size(wVec,1)+1,:)=w;
     end
     
