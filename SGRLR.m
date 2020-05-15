@@ -1,6 +1,5 @@
-
 function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,...
-    maxit,eps,verbosity)
+    maxit,verbosity)
 
 %------------------------------------------------------------------
 % Stochastic Gradient Method for Regularized Logistic Regression
@@ -14,7 +13,6 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,..
 %reg: scalar, regularization term
 %LC: constant of the reduced stepsize (numerator) 
 %maxit: maximum number of iterations
-%eps: tolerance
 %verbosity: printing level
 
 %OUTPUT
@@ -92,7 +90,8 @@ while (it<=maxit)
     if(it==1)
         wVec=w;
     end
-    if(mod(it-1,100)==0)
+    
+    if((it>1)&& (mod(it-1,100)==0))
         wVec(size(wVec,1)+1,:)=w;
     end
 
@@ -109,13 +108,13 @@ while (it<=maxit)
         
 end
 
+ttot = toc;
 if(it<=maxit)
     lossVec=lossVec(1:it-1);
     timeVec=timeVec(1:it-1);
     gnrit=gnrit(1:it-1);
 end
 
-ttot = toc;
 it=it-1;
 end
 
