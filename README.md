@@ -1,5 +1,4 @@
-# OPTHW1
-Homework 1 Optimisazion for DS
+# Optimization for Data Science - Homework 1
 
 **Students:**\
 Caria Natascia       1225874\
