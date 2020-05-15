@@ -14,8 +14,8 @@ Regularized Logistic Regression with
 
 ## Data Set
 GISETTE Data Set for handwritten digit recognition problem.
-The task is to separate the highly confusible digits '4' and '9'.
-It consists of 6000 instances, 5000 attributes and 2 classes.
+The task is to separate the highly confusible digits '4' and '9'.\
+It consists of 6000 instances, 5000 attributes and 2 classes.\
 The Data is available on [UCI archive](https://archive.ics.uci.edu/ml/datasets/Gisette).
 
 ## Code Description
