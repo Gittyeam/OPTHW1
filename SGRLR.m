@@ -47,19 +47,19 @@ err = 0;
 
 while (it<=maxit)
     %vectors updating
-    if (it==1)
-        timeVec(it) = 0;
-    else
+    if (it > 1)
         timeVec(it) = toc;
+    else
+        timeVec(it) = 0;
     end
+    
     lossVec(it)=loss;
     
     % gradient evaluation
     ind=randi(m);
     xi=X(ind,:);
     yi=y(ind);
-    ei=exp(-yi*xi*w');
-    g=(-ei*yi/(1+ei))*xi+(reg/m)*w;
+    g=GradLossRLR(xi,yi,w,reg/m);
     
     % check gradient overflow
     if isnan(g)
@@ -91,7 +91,7 @@ while (it<=maxit)
         wVec=w;
     end
     
-    if((it>1)&& (mod(it-1,100)==0))
+    if((it>1)&& (mod(it-1,1000)==0))
         wVec(size(wVec,1)+1,:)=w;
     end
 
@@ -109,12 +109,6 @@ while (it<=maxit)
 end
 
 ttot = toc;
-if(it<=maxit)
-    lossVec=lossVec(1:it-1);
-    timeVec=timeVec(1:it-1);
-    gnrit=gnrit(1:it-1);
-end
-
 it=it-1;
 end
 
