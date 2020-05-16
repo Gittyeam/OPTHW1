@@ -1,5 +1,5 @@
 function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,...
-    maxit,rate)
+          maxit,rate)
 
 %---------------------------------------------------------------
 % Stochastic Gradient Method for Regularized Logistic Regression
