@@ -1,48 +1,50 @@
 function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,...
-    maxit,verbosity)
+    maxit,rate)
 
-%------------------------------------------------------------------
+%---------------------------------------------------------------
 % Stochastic Gradient Method for Regularized Logistic Regression
+%---------------------------------------------------------------
+
+% INPUT 
+% X: matrix of sizes (m,n), m istances of dimension n
+% y: col vector of length m, it contains the corresponding label for each
+% istance in X (binary classification -1/+1)
+% w: row vector of length n, starting values for parameters
+% reg: scalar, regularization term
+% LC: constant of the reduced stepsize (numerator) 
+% maxit: maximum number of iterations
+% rate: loss and weight vector computing rate
+
+% OUTPUT
+% w: optimal vector of parameters
+% wVec: matrix with all the obtained vector w
+% it: number of performed iterations
+% loss: value of the loss function
+% ttot: total CPU time of execution
+% lossVec: vector containing the loss value for each iter
+% timeVec: vector containing CPU time at each iter
+% gnrit: vector containing the norm of the gradient at each iter
+% err: error flag for overflow
 %------------------------------------------------------------------
 
-%INPUT 
-%X: matrix of sizes (m,n), m istances of dimension n
-%y: col vector of length m, it contains the corresponding label for each
-%istance in X (binary classification -1/+1)
-%w: row vector of length n, starting values for parameters
-%reg: scalar, regularization term
-%LC: constant of the reduced stepsize (numerator) 
-%maxit: maximum number of iterations
-%verbosity: printing level
-
-%OUTPUT
-%w: optimal vector of parameters
-%wVec: matrix with all the obtained vector w
-%it: number of performed iterations
-%loss: value of the loss function
-%ttot: total CPU time of execution
-%lossVec: vector containing the loss value for each iter
-%timeVec: vector containing CPU time at each iter
-%gnrit: vector containing the norm of the gradient at each iter
-%err: error flag for overflow
-%------------------------------------------------------------------
-
-%initialize vectors of loss, grad norm and time
-
-lossVec=zeros(1,maxit);
-gnrit=zeros(1,maxit);
-timeVec=zeros(1,maxit);
-
-%Start time
-tic;
-
-%Data dimensions
+% Data dimensions
 [m,n] = size(X);
 
-%Loss function computation
-loss=LossRLR(X,y,w,reg);
+% initialize vectors of loss, grad norm and time
+lossVec = zeros(1,maxit);
+gnrit = zeros(1,maxit);
+timeVec = zeros(1,maxit);
+wVec = zeros(maxit/rate,n);
+wVec(1,:) = w;
 
-it=1;
+% Start time
+tic;
+
+% Loss function computation
+loss = LossRLR(X,y,w,reg);
+
+it = 1;
+nr = 1;
 err = 0;
 
 while (it<=maxit)
@@ -56,59 +58,36 @@ while (it<=maxit)
     lossVec(it)=loss;
     
     % gradient evaluation
-    ind=randi(m);
-    xi=X(ind,:);
-    yi=y(ind);
-    g=GradLossRLR(xi,yi,w,reg/m);
+    ind = randi(m);
+    xi = X(ind,:);
+    yi = y(ind);
+    g = GradLossRLR(xi,yi,w,reg/m);
     
     % check gradient overflow
     if isnan(g)
         disp('Gradient overflow');
-        err=1;
+        err = 1;
         break;
     end
     
-    %compute direction and gradient norm
-    d=-g;  
-    gnr = g*d';
-    gnrit(it) = -gnr;
-       
+    %compute direction
+    d = -g;
+    
     %reduced alpha
-    alpha =sqrt(LC/(it+1));
+    alpha = sqrt(LC/(it+1));        % test without sqrt
     
-    new_w = w+alpha*d;
+    w = w+alpha*d;
     
-    if(mod(it,1000)==0)
-        new_loss = LossRLR(X,y,new_w,reg);
-    else
-        new_loss = loss;
-    end
-        
-    w=new_w; 
-    loss = new_loss;
-    
-    if(it==1)
-        wVec=w;
+    if(mod(it,rate)==0)
+        nr = nr+1;
+        loss = LossRLR(X,y,w,reg);
+        wVec(nr,:) = w;
     end
     
-    if((it>1)&& (mod(it-1,1000)==0))
-        wVec(size(wVec,1)+1,:)=w;
-    end
-
-        
-    if (verbosity>0)
-        disp(['-----------------** ' num2str(it) ' **------------------']);
-        disp(['gnr      = ' num2str(abs(gnr))]);
-        disp(['loss     = ' num2str(loss)]);
-        disp(['alpha    = ' num2str(alpha)]);                    
-    end
-
     it = it+1;
-        
-        
 end
 
 ttot = toc;
-it=it-1;
-end
+it = it-1;
 
+end
