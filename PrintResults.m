@@ -1,4 +1,4 @@
-function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err)
+function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,rate,err,gnrit)
 
 %------------------------------------------------------------------
 %This function print the results of a method in terms of time, iterations
@@ -8,7 +8,9 @@ function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,w
 if(err==0)
     fprintf(1,strcat(name,' Loss            = %10.3e\n'),loss);
     fprintf(1,strcat(name,' Iterations      = %d\n'),it);
-    fprintf(1,strcat(name,' ||gr||^2        = %10.3e\n'),gnrit(it));
+    if (name != 'SGD')
+       fprintf(1,strcat(name,' ||gr||^2        = %10.3e\n'),gnrit(it));
+    end
     fprintf(1,strcat(name,'  CPU time       = %10.3e\n'), ttot);
     
     %plot loss as function of iter and time 
@@ -27,12 +29,14 @@ if(err==0)
     ylabel('Loss');
     
     %plot grad norm 
-    figure('Name',strcat('3 - ',name))
-    title('Gradient - Iter')
-    semilogy(1:it,gnrit,'g-')
-    title(strcat(name,' - Gradient Norm ^2'))
-    xlabel('Iter'); 
-    ylabel('||gr||^2');
+    if (name != 'SGD')
+        figure('Name',strcat('3 - ',name))
+        title('Gradient - Iter')
+        semilogy(1:it,gnrit,'g-')
+        title(strcat(name,' - Gradient Norm ^2'))
+        xlabel('Iter'); 
+        ylabel('||gr||^2');
+    end
     
     %Train accuracy
     
@@ -53,7 +57,7 @@ if(err==0)
     fprintf(1,strcat(name,' train F1        = %4.2f\n'),F1);
     fprintf(1,strcat(name,' train accuracy  = %4.2f\n'),acc);
     
-    t=[timeVec(1:1000:it) timeVec(it)];
+    t=[timeVec(1:rate:it) timeVec(it)];
     
     figure('Name',strcat('4 - ',name))
     plot(t,accVec,'b-')
