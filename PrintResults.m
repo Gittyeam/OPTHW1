@@ -55,7 +55,7 @@ if(err==0)
     fprintf(1,strcat(name,' train precision = %4.2f\n'),prec);
     fprintf(1,strcat(name,' train recall    = %4.2f\n'),rec);
     fprintf(1,strcat(name,' train F1        = %4.2f\n'),F1);
-    fprintf(1,strcat(name,' train accuracy  = %4.2f\n'),acc);
+    fprintf(1,strcat(name,' train accuracy  = %4.2f%%\n'),acc);
     
     t=[timeVec(1:rate:it) timeVec(it)];
     
@@ -84,7 +84,7 @@ if(err==0)
     fprintf(1,strcat(name,' test precision  = %4.2f\n'),prec);
     fprintf(1,strcat(name,' test recall     = %4.2f\n'),rec);
     fprintf(1,strcat(name,' test F1         = %4.2f\n'),F1);
-    fprintf(1,strcat(name,' test accuracy   = %4.2f\n'),acc);
+    fprintf(1,strcat(name,' test accuracy   = %4.2f%%\n'),acc);
 else
     fprintf('The method does not converge! \n')
 end
