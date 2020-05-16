@@ -62,10 +62,9 @@ while (it<=maxit)
     ind = randi(m);
     xi = X(ind,:);
     yi = y(ind);
-    ei = exp(-yi*xi*w.');
-    eiz = exp(-yi*xi*wz.');
-    g = -yi*ei/(1+ei) * xi + reg*w/m;       % new ind-th gradient for iteration it
-    gz = -yi*eiz/(1+eiz) * xi + reg*wz/m;	% epoch ind-th gradient
+    g = GradLossRLR(xi,yi,w,reg/m); % new ind-th gradient for iteration it
+    gz = GradLossRLR(xi,yi,wz,reg/m); % epoch ind-th gradient
+    
     gf = g-gz+(1/m)*gsvrg;                  % complete ind-th gradient for iteration it
     
     % check gradient overflow
