@@ -53,7 +53,7 @@ if(err==0)
     fprintf(1,strcat(name,' train F1        = %4.2f\n'),F1);
     fprintf(1,strcat(name,' train accuracy  = %4.2f\n'),acc);
     
-    t=timeVec(1:100:it);
+    t=[timeVec(1:1000:it) timeVec(it)];
     
     figure('Name',strcat('4 - ',name))
     plot(t,accVec,'b-')
