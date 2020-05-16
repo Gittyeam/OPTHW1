@@ -1,9 +1,9 @@
 function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,rate,err,gnrit)
 
-%------------------------------------------------------------------
-%This function print the results of a method in terms of time, iterations
-%and accuracy
-%------------------------------------------------------------------
+%--------------------------------------------------------------
+% This function print the results of a method in terms of time,
+% iterations and accuracy
+%--------------------------------------------------------------
 
 if(err==0)
     fprintf(1,strcat(name,' Loss            = %10.3e\n'),loss);
@@ -13,7 +13,7 @@ if(err==0)
     end
     fprintf(1,strcat(name,'  CPU time       = %10.3e\n'), ttot);
     
-    %plot loss as function of iter and time 
+    % plot loss as function of iter and time 
     figure('Name',strcat('1 - ',name))
     title('Loss - Iter');
     semilogy(1:it,lossVec,'k-')
@@ -28,8 +28,8 @@ if(err==0)
     xlabel('Time'); 
     ylabel('Loss');
     
-    %plot grad norm 
-    if (name != 'SGM')
+    % plot grad norm 
+    if not(strcmp(name,'SGM'))
         figure('Name',strcat('3 - ',name))
         title('Gradient - Iter')
         semilogy(1:it,gnrit,'g-')
@@ -38,7 +38,7 @@ if(err==0)
         ylabel('||gr||^2');
     end
     
-    %Train accuracy
+    % Train accuracy
     
     F1Vec=zeros(1,size(wVec,1));
     accVec=zeros(1,size(wVec,1));
@@ -51,7 +51,7 @@ if(err==0)
     end
     
     
-    % Print evaluations:
+    % print evaluations
     fprintf(1,strcat(name,' train precision = %4.2f\n'),prec);
     fprintf(1,strcat(name,' train recall    = %4.2f\n'),rec);
     fprintf(1,strcat(name,' train F1        = %4.2f\n'),F1);
@@ -72,15 +72,15 @@ if(err==0)
     ylabel('F1 score');
 
     
-    %Test accuracy
+    % Test accuracy
     
     %predict
     y_pred=sign(X_test*optw');
     
-    %compute accuracy scores
+    % compute accuracy scores
     [prec,rec,F1,acc] = AccuracyMeasures(y_pred,y_test);
 
-    % Print evaluations:
+    % print evaluations
     fprintf(1,strcat(name,' test precision  = %4.2f\n'),prec);
     fprintf(1,strcat(name,' test recall     = %4.2f\n'),rec);
     fprintf(1,strcat(name,' test F1         = %4.2f\n'),F1);
