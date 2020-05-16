@@ -66,11 +66,11 @@ disp('*****************************');
 [optw_gm,wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,gnrit_gm,err_gm] = ...
 GDRLR(X_train,y_train,w_gm,reg_gm,L_gm,maxit_gm,rate_gm);
 
-% Print results:
+% print results
 [t_gm,accVec_gm,F1Vec_gm]=PrintResults('GM',X_train,X_test,y_train,y_test,optw_gm,...
-wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,gnrit_gm,err_gm);
+wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,rate_gm,err_gm,gnrit_gm);
 
-%2) STOCHASTIC GRADIENT DESCENT
+% 2) STOCHASTIC GRADIENT DESCENT
 
 disp('*****************************');
 disp('*        SGM STANDARD       *');
@@ -80,25 +80,26 @@ disp('*****************************');
 [optw_sg,wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,err_sg] = ...
 SGRLR(X_train,y_train,w_sg,reg_sg,LC_sg,maxit_sg,rate_sg);
 
-% Print results:
-[t_sg,accVec_sg,F1Vec_sg]=PrintResults('SGM',X_train,X_test,y_train,y_test,optw_sg,...
-wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,err_sg);
+% print results
+[t_sg,accVec_sg,F1Vec_sg] = PrintResults('SGM',X_train,X_test,y_train,y_test,optw_sg,...
+wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,rate_sg,err_sg,NaN);
 
-%3) SVRG
+% 3) SVRG
 
 disp('*****************************');
 disp('*       SVRGM STANDARD      *');
 disp('*****************************');
 
-%call SVRG_rlr
+% call SVRG_rlr
 
-[optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,gnrit_svrg,err_svrg] = SVRGRLR(X_train,y_train,w_svrg,...
-reg_svrg,alpha_svrg,eplen_svrg,maxit_svrg);
+[optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,gnrit_svrg,err_svrg] = ...
+SVRGRLR(X_train,y_train,w_svrg,reg_svrg,alpha_svrg,eplen_svrg,maxit_svrg);
 
-% Print results:
-[t_svrg,accVec_svrg,F1Vec_svrg]=PrintResults('SVRG',X_train,X_test,y_train,y_test,optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,gnrit_svrg,err_svrg);
+% print results
+[t_svrg,accVec_svrg,F1Vec_svrg] = PrintResults('SVRG',X_train,X_test,y_train,y_test,...
+optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,eplen_svrg,err_svrg,gnrit_svrg);
 
-%COMPARE METHODS
+% COMPARE METHODS
 if(err_gm+err_sg+err_svrg==0)
     %plot time - loss
     figure
@@ -147,8 +148,4 @@ if(err_gm+err_sg+err_svrg==0)
     ylabel('F1');
     title('GD vs SGD vs SVRGD - Train F1 score')
     legend('GM', 'SGM', 'SVRGM')
-    
-end   
-   
- 
-
+end
