@@ -26,28 +26,28 @@ w_gm = randn(1,n);
 w_sg = randn(1,n);
 w_svrg = randn(1,n);
 
-% min-max normalization in [-1 , 1]
-w_gm = w_gm/max(abs(w_gm));  
+% min-max normalization in [-1, 1]
+w_gm = w_gm/max(abs(w_gm));
 w_sg = w_sg/max(abs(w_sg));
 w_svrg = w_svrg/max(abs(w_svrg));
 
 % initilize hyper-parameters
 reg_gm = 0.01;
 reg_sg = 10;
-reg_svrg = 0.01;
+reg_svrg = 10;
 
 % constants
-L_gm = 10^6;        % Lipschitz constant over estimastion (GD method)
+L_gm = 10^7;        % Lipschitz constant over estimastion (GD method)
 LC_sg = 0.001;      % step size numerator (SGD method)
 alpha_svrg = 0.001; % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
-maxit_gm = 1000;
-maxit_sg = 50000;
-maxit_svrg = 50000;
+maxit_gm = 300;
+maxit_sg = 100000;
+maxit_svrg = 100000;
 
 % loss and weight update rate for accuracy computation
-rate_gm = 1000;
+rate_gm = 10;
 rate_sg = 1000;
 
 % epochs length (SVRG method)
@@ -108,12 +108,12 @@ if(err_gm+err_sg+err_svrg==0)
     semilogy(timeVec_sg,lossVec_sg,'b-')
     semilogy(timeVec_svrg,lossVec_svrg,'g-')
     xlim([0 250]);
-    xlabel('Time'); 
+    xlabel('Time');
     ylabel('Loss');
     title('GD vs SGD vs SVRGD - Loss function')
     legend('GM', 'SGM', 'SVRGM')
     
-    %log log time plot time - loss 
+    %log log time plot time - loss
     figure
     loglog(timeVec_gm,lossVec_gm,'r-')
     hold on
@@ -144,7 +144,7 @@ if(err_gm+err_sg+err_svrg==0)
     semilogy(t_sg,F1Vec_sg,'b-')
     semilogy(t_svrg,F1Vec_svrg,'g-')
     xlim([0 250]);
-    xlabel('Time'); 
+    xlabel('Time');
     ylabel('F1');
     title('GD vs SGD vs SVRGD - Train F1 score')
     legend('GM', 'SGM', 'SVRGM')
