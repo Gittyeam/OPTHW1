@@ -29,7 +29,7 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,lc,
 %------------------------------------------------------------------
 
 % Data dimensions
-m, n = size(X);
+[m, n] = size(X);
 
 % initialize vectors of loss, grad norm and time
 lossVec = zeros(1,maxit);
