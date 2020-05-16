@@ -46,10 +46,10 @@ err=0;
 %max number of iteration or min tolerance reached
 while (it<=maxit && (abs(gnr) > eps))
     %vectors updating
-    if (it==1)
-        timeVec(it) = 0;
-    else
+    if (it > 1)
         timeVec(it) = toc;
+    else
+        timeVec(it) = 0;
     end
     
     lossVec(it)=loss;
@@ -78,7 +78,7 @@ while (it<=maxit && (abs(gnr) > eps))
         wVec=w;
     end
     
-    if((it>1)&& (mod(it-1,100)==0))
+    if((it>1)&& (mod(it-1,1000)==0))
         wVec(size(wVec,1)+1,:)=w;
     end
     
