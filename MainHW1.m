@@ -37,21 +37,21 @@ reg_sg = 10;
 reg_svrg = 10;
 
 % constants
-L_gm = 10^7;        % Lipschitz constant over estimastion (GD method)
+L_gm = 5*10^6;      % Lipschitz constant over estimastion (GD method)
 LC_sg = 0.001;      % step size numerator (SGD method)
 alpha_svrg = 0.001; % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
-maxit_gm = 300;
-maxit_sg = 100000;
-maxit_svrg = 100000;
+maxit_gm = 1000;
+maxit_sg = 10000;
+maxit_svrg = 10000;
 
 % loss and weight update rate for accuracy computation
 rate_gm = 10;
-rate_sg = 1000;
+rate_sg = 100;
 
 % epochs length (SVRG method)
-eplen_svrg = 5000;
+eplen_svrg = 100;
 
 % class all open figures (if any)
 close all
@@ -101,19 +101,19 @@ optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,eplen_
 
 % COMPARE METHODS
 if(err_gm+err_sg+err_svrg==0)
-    %plot time - loss
+    % plot time - loss
     figure
     semilogy(timeVec_gm,lossVec_gm,'r-')
     hold on
     semilogy(timeVec_sg,lossVec_sg,'b-')
     semilogy(timeVec_svrg,lossVec_svrg,'g-')
-    xlim([0 250]);
+    xlim([0 100]);
     xlabel('Time');
     ylabel('Loss');
     title('GD vs SGD vs SVRGD - Loss function')
     legend('GM', 'SGM', 'SVRGM')
     
-    %log log time plot time - loss
+    % plot iter - loss
     figure
     semilogy(1:it_gm,lossVec_gm,'r-')
     hold on
@@ -124,7 +124,7 @@ if(err_gm+err_sg+err_svrg==0)
     title('GD vs SGD vs SVRGD - Loss function')
     legend('GM', 'SGM', 'SVRGM')
     
-    %plot time - accuracy
+    % plot time - accuracy
     figure
     semilogy(t_gm,accVec_gm,'r-')
     hold on
