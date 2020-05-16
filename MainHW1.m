@@ -37,21 +37,21 @@ reg_sg = 10;
 reg_svrg = 10;
 
 % constants
-L_gm = 5*10^6;      % Lipschitz constant over estimastion (GD method)
+L_gm = 10^7;        % Lipschitz constant over estimastion (GD method)
 LC_sg = 0.001;      % step size numerator (SGD method)
-alpha_svrg = 0.001; % step size (SVRG method)
+alpha_svrg = 0.01;  % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
 maxit_gm = 1000;
 maxit_sg = 10000;
-maxit_svrg = 10000;
+maxit_svrg = 5000; % 2500 ideale
 
 % loss and weight update rate for accuracy computation
 rate_gm = 10;
 rate_sg = 100;
 
 % epochs length (SVRG method)
-eplen_svrg = 100;
+eplen_svrg = 500; % 1000 ideale
 
 % class all open figures (if any)
 close all
@@ -130,9 +130,9 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,accVec_sg,'b-')
     semilogy(t_svrg,accVec_svrg,'g-')
-    xlim([0 250]);
+    xlim([0 100]);
     xlabel('Time'); 
-    ylabel('%');
+    ylabel('Accuracy %');
     title('GD vs SGD vs SVRGD - Train Accuracy')
     legend('GM', 'SGM', 'SVRGM')
     
@@ -142,9 +142,9 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,F1Vec_sg,'b-')
     semilogy(t_svrg,F1Vec_svrg,'g-')
-    xlim([0 250]);
+    xlim([0 100]);
     xlabel('Time');
-    ylabel('F1');
+    ylabel('F1 score');
     title('GD vs SGD vs SVRGD - Train F1 score')
     legend('GM', 'SGM', 'SVRGM')
 end
