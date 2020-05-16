@@ -1,5 +1,5 @@
 function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,alpha,...
-          nepochs,maxit)
+          epochs_len,maxit)
 
 %----------------------------------------------------------------------------------
 % Stochastic Variance Reduction Gradient Method for Regularized Logistic Regression
@@ -12,7 +12,7 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,alp
 % w: row vector of length n, starting values for parameters
 % reg: scalar, regularization term
 % alpha: fixed stepsize
-% nepochs: epoch length
+% epochs_len: epochs length
 % maxit: maximum number of iterations
 
 % OUTPUT
@@ -34,7 +34,7 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,alp
 lossVec = zeros(1,maxit);
 gnrit = zeros(1,maxit);
 timeVec = zeros(1,maxit);
-wVec = zeros(maxit/nepochs,n);      % Memory consuming, but wonderful charts
+wVec = zeros(maxit/epochs_len,n);      % Memory consuming, but wonderful charts
 wVec(1,:) = w;
 
 gsvrg = GradLossRLR(X,y,w,reg);     % vector containing the SUM of gradients (m * \mu tilde)
@@ -81,8 +81,8 @@ while (it<=maxit)
     % weight update
     w = w+alpha*d;
     
-    % update w tilde, loss and gradient at the end of epoch (nepochs iterations per epoch)
-    if(mod(it,nepochs)==0)
+    % update w tilde, loss and gradient at the end of epoch (epochs_len iterations per epoch)
+    if(mod(it,epochs_len)==0)
         ep = ep+1;
         wz = w;
         wVec(ep,:) = wz;
