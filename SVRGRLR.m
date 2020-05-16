@@ -85,8 +85,8 @@ while (it<=maxit)
     if(mod(it,nepochs)==0)
         wz = w;
         wVec = [wVec; wz];
-        loss = LossRLR(X,y,z,reg);
-        gsvrg = GradLossRLR(X,y,z,reg);
+        loss = LossRLR(X,y,wz,reg);
+        gsvrg = GradLossRLR(X,y,wz,reg);
         gnr = gsvrg*gsvrg';
     end
     
