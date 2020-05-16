@@ -1,4 +1,4 @@
-function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,lc,...
+function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,alpha,...
           nepochs,maxit)
 
 %----------------------------------------------------------------------------------
@@ -8,10 +8,10 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,lc,
 % INPUT 
 % X: matrix of sizes (m,n), m istances of dimension n
 % y: col vector of length m, it contains the corresponding label for each
-% istance in X (binary classification -1/+1)
+% instance in X (binary classification -1/+1)
 % w: row vector of length n, starting values for parameters
 % reg: scalar, regularization term
-% lc: constant of the reduced stepsize (numerator)
+% alpha: fixed stepsize
 % nepochs: epoch length
 % maxit: maximum number of iterations
 
@@ -78,8 +78,7 @@ while (it<=maxit)
     d = -gf;
     gnrit(it) = gnr;
     
-    %alpha selection
-    alpha = lc;
+    % weight update
     w = w+alpha*d;
     
     % update w tilde, loss and gradient at the end of epoch (nepochs iterations per epoch)
