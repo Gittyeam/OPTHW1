@@ -73,7 +73,7 @@ while (it<=maxit)
     % check gradient overflow
     if isnan(gf)
         disp('Gradient overflow');
-        err=1;
+        err = 1;
         break;
     end
     
