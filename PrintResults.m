@@ -8,7 +8,7 @@ function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,w
 if(err==0)
     fprintf(1,strcat(name,' Loss            = %10.3e\n'),loss);
     fprintf(1,strcat(name,' Iterations      = %d\n'),it);
-    if (name != 'SGM')
+    if not(strcmp(name,'SGM'))
        fprintf(1,strcat(name,' ||gr||^2        = %10.3e\n'),gnrit(it));
     end
     fprintf(1,strcat(name,'  CPU time       = %10.3e\n'), ttot);
