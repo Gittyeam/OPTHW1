@@ -36,6 +36,7 @@ lossVec = zeros(1,maxit);
 gnrit = zeros(1,maxit);
 timeVec = zeros(1,maxit);
 wVec = zeros(maxit/nepochs,n);      % Memory consuming, but wonderful charts
+wVec(1,:) = w;
 
 % Start time
 tic;
@@ -46,6 +47,7 @@ loss = LossRLR(X,y,w,reg);          % objective function computation
 wz = w;                             % w tilde for the first epoch
 
 it = 1;
+ep = 1;
 err = 0;
 
 
@@ -81,10 +83,12 @@ while (it<=maxit)
     %alpha selection
     alpha = lc;
     w = w+alpha*d;
+    
     % update w tilde, loss and gradient at the end of epoch (nepochs iterations per epoch)
     if(mod(it,nepochs)==0)
+        ep = ep+1;
         wz = w;
-        wVec = [wVec; wz];
+        wVec(ep,:) = wz;
         loss = LossRLR(X,y,wz,reg);
         gsvrg = GradLossRLR(X,y,wz,reg);
         gnr = gsvrg*gsvrg';
