@@ -51,7 +51,7 @@ rate_gm = 10;
 rate_sg = 1000;
 
 % epochs length (SVRG method)
-eplen_svrg = 1000;
+eplen_svrg = 5000;
 
 % class all open figures (if any)
 close all
@@ -115,15 +115,14 @@ if(err_gm+err_sg+err_svrg==0)
     
     %log log time plot time - loss
     figure
-    loglog(timeVec_gm,lossVec_gm,'r-')
+    semilogy(1:it_gm,lossVec_gm,'r-')
     hold on
-    loglog(timeVec_sg,lossVec_sg,'b-')
-    loglog(timeVec_svrg,lossVec_svrg,'g-')
-    xlabel('Time'); 
+    loglog(1:it_sg,lossVec_sg,'b-')
+    loglog(1:it_svrg,lossVec_svrg,'g-')
+    xlabel('Iter'); 
     ylabel('Loss');
     title('GD vs SGD vs SVRGD - Loss function')
-    legend('GM', 'SGM', 'SVRGM') 
-    
+    legend('GM', 'SGM', 'SVRGM')
     
     %plot time - accuracy
     figure
