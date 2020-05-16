@@ -12,7 +12,6 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,lc,
 % w: row vector of length n, starting values for parameters
 % reg: scalar, regularization term
 % lc: constant of the reduced stepsize (numerator)
-% verbosity: printing level
 % nepochs: epoch length
 % maxit: maximum number of iterations
 
