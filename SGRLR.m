@@ -37,15 +37,15 @@ timeVec = zeros(1,maxit);
 wVec = zeros(maxit/rate,n);
 wVec(1,:) = w;
 
-% Start time
-tic;
-
 % Loss function computation
 loss = LossRLR(X,y,w,reg);
 
 it = 1;
 nr = 1;
 err = 0;
+
+% start time
+tic;
 
 while (it<=maxit)
     %vectors updating
