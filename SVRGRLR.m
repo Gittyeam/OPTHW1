@@ -37,9 +37,6 @@ timeVec = zeros(1,maxit);
 wVec = zeros(maxit/nepochs,n);      % Memory consuming, but wonderful charts
 wVec(1,:) = w;
 
-% Start time
-tic;
-
 gsvrg = GradLossRLR(X,y,w,reg);     % vector containing the SUM of gradients (m * \mu tilde)
 gnr = gsvrg*gsvrg';
 loss = LossRLR(X,y,w,reg);          % objective function computation
@@ -49,6 +46,8 @@ it = 1;
 ep = 1;
 err = 0;
 
+% start time
+tic;
 
 while (it<=maxit)
     % vectors updating
