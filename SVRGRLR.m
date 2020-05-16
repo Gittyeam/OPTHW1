@@ -98,7 +98,7 @@ while (it<=maxit)
         wVec=w;
     end
     
-    if((it>1) && (mod(it-1,nepochs)==0))
+    if((it>1) && (mod(it-1,1000)==0))
         wVec(size(wVec,1)+1,:)=w;
     end
     
