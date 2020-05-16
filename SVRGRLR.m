@@ -1,5 +1,5 @@
 function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SVRGRLR(X,y,w,reg,lc,...
-    verbosity,nepochs,maxit)
+          nepochs,maxit)
 
 %----------------------------------------------------------------------------------
 % Stochastic Variance Reduction Gradient Method for Regularized Logistic Regression
