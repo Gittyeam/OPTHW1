@@ -1,4 +1,4 @@
-function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,...
+function [w,wVec,it,loss,ttot,lossVec,timeVec,gnr,err] = SGRLR(X,y,w,reg,LC,...
           maxit,rate)
 
 %---------------------------------------------------------------
@@ -23,7 +23,7 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,..
 % ttot: total CPU time of execution
 % lossVec: vector containing the loss value for each iter
 % timeVec: vector containing CPU time at each iter
-% gnrit: vector containing the norm of the gradient at each iter
+% gnr: vector of size (1) containing the norm of the gradient after the method ends
 % err: error flag for overflow
 %------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ function [w,wVec,it,loss,ttot,lossVec,timeVec,gnrit,err] = SGRLR(X,y,w,reg,LC,..
 
 % initialize vectors of loss, grad norm and time
 lossVec = zeros(1,maxit);
-gnrit = zeros(1,maxit);
+gnr = zeros(1);
 timeVec = zeros(1,maxit);
 wVec = zeros(maxit/rate,n);
 wVec(1,:) = w;
@@ -89,5 +89,7 @@ end
 
 ttot = toc;
 it = it-1;
+fg = GradLossRLR(X,y,w,reg);        %full gradient
+gnr(end) = fg*fg';
 
 end
