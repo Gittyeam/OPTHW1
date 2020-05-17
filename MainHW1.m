@@ -110,7 +110,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(timeVec_sg,lossVec_sg,'b-')
     semilogy(timeVec_svrg,lossVec_svrg,'g-')
-    xlim([0 60]);
+    xlim([0 20]);
     xlabel('Time');
     ylabel('Loss');
     title('GD vs SGD vs SVRGD - Loss function')
@@ -133,7 +133,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,accVec_sg,'b-')
     semilogy(t_svrg,accVec_svrg,'g-')
-    xlim([0 60]);
+    xlim([0 20]);
     xlabel('Time'); 
     ylabel('Accuracy %');
     title('GD vs SGD vs SVRGD - Train Accuracy')
@@ -145,7 +145,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,F1Vec_sg,'b-')
     semilogy(t_svrg,F1Vec_svrg,'g-')
-    xlim([0 60]);
+    xlim([0 20]);
     xlabel('Time');
     ylabel('F1 score');
     title('GD vs SGD vs SVRGD - Train F1 score')
