@@ -43,6 +43,6 @@ recall = TP / (TP+FN);
 F1 = 2*(precision*recall)/(precision+recall);
 
 %accuracy
-accuracy = 100*(TP+TN)/(TP+TN+FN+FP);
+accuracy = (TP+TN)/(TP+TN+FN+FP);
 
 end

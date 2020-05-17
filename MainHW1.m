@@ -42,13 +42,13 @@ LC_sg = 0.001;      % step size numerator (SGD method)
 alpha_svrg = 0.01;  % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
-maxit_gm = 1000;
+maxit_gm = 100;
 maxit_sg = 10000;
-maxit_svrg = 5000; % 2500 ideale
+maxit_svrg = 3000; % 2500 ideale
 
 % loss and weight update rate for accuracy computation
-rate_gm = 10;
-rate_sg = 100;
+rate_gm = 5;
+rate_sg = 500;
 
 % epochs length (SVRG method)
 eplen_svrg = 500; % 1000 ideale
@@ -107,7 +107,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(timeVec_sg,lossVec_sg,'b-')
     semilogy(timeVec_svrg,lossVec_svrg,'g-')
-    xlim([0 100]);
+    xlim([0 60]);
     xlabel('Time');
     ylabel('Loss');
     title('GD vs SGD vs SVRGD - Loss function')
@@ -130,7 +130,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,accVec_sg,'b-')
     semilogy(t_svrg,accVec_svrg,'g-')
-    xlim([0 100]);
+    xlim([0 60]);
     xlabel('Time'); 
     ylabel('Accuracy %');
     title('GD vs SGD vs SVRGD - Train Accuracy')
@@ -142,7 +142,7 @@ if(err_gm+err_sg+err_svrg==0)
     hold on
     semilogy(t_sg,F1Vec_sg,'b-')
     semilogy(t_svrg,F1Vec_svrg,'g-')
-    xlim([0 100]);
+    xlim([0 60]);
     xlabel('Time');
     ylabel('F1 score');
     title('GD vs SGD vs SVRGD - Train F1 score')
