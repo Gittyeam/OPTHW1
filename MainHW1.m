@@ -1,8 +1,11 @@
 % HOMEWORK 1 - OPTIMIZATION FOR DATA SCIENCE - 17/5/2020
 
-% Caria Natascia - 1225874
+% Caria Natascia    - 1225874
 % Cozzolino Claudia - 1227998
-% Petrella Alfredo - 1206627
+% Petrella Alfredo  - 1206627
+
+% Cleaning workspace and closing all open figures
+clear all; close all;
 
 % IMPORT DATASET AND PREPROCESS
 
@@ -18,6 +21,9 @@ y_test = data.ytest;
 [m, n] = size(X_train);
 
 % REGULARIZED LOGISTIC REGRESSION
+
+% set random number generator
+rng(1)
 
 % initilize hyper-parameters
 
@@ -68,7 +74,7 @@ GDRLR(X_train,y_train,w_gm,reg_gm,L_gm,maxit_gm,rate_gm);
 
 % print results
 [t_gm,accVec_gm,F1Vec_gm]=PrintResults('GM',X_train,X_test,y_train,y_test,optw_gm,...
-wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,rate_gm,err_gm,gnrit_gm);
+wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,rate_gm,gnrit_gm,err_gm);
 
 % 2) STOCHASTIC GRADIENT DESCENT
 
@@ -77,12 +83,12 @@ disp('*        SGM STANDARD       *');
 disp('*****************************');
 
 % call STG_rlr
-[optw_sg,wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,err_sg] = ...
+[optw_sg,wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,gnrit_sg,err_sg] = ...
 SGRLR(X_train,y_train,w_sg,reg_sg,LC_sg,maxit_sg,rate_sg);
 
 % print results
 [t_sg,accVec_sg,F1Vec_sg] = PrintResults('SGM',X_train,X_test,y_train,y_test,optw_sg,...
-wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,rate_sg,err_sg,NaN);
+wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,rate_sg,gnrit_sg,err_sg);
 
 % 3) SVRG
 
@@ -97,7 +103,7 @@ SVRGRLR(X_train,y_train,w_svrg,reg_svrg,alpha_svrg,eplen_svrg,maxit_svrg);
 
 % print results
 [t_svrg,accVec_svrg,F1Vec_svrg] = PrintResults('SVRG',X_train,X_test,y_train,y_test,...
-optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,eplen_svrg,err_svrg,gnrit_svrg);
+optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,eplen_svrg,gnrit_svrg,err_svrg);
 
 % COMPARE METHODS
 if(err_gm+err_sg+err_svrg==0)
