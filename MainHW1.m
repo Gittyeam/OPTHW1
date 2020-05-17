@@ -83,12 +83,12 @@ disp('*        SGM STANDARD       *');
 disp('*****************************');
 
 % call STG_rlr
-[optw_sg,wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,gnrit_sg,err_sg] = ...
+[optw_sg,wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,gnr_sg,err_sg] = ...
 SGRLR(X_train,y_train,w_sg,reg_sg,LC_sg,maxit_sg,rate_sg);
 
 % print results
 [t_sg,accVec_sg,F1Vec_sg] = PrintResults('SGM',X_train,X_test,y_train,y_test,optw_sg,...
-wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,rate_sg,gnrit_sg,err_sg);
+wVec_sg,it_sg,loss_sg,ttot_sg,lossVec_sg,timeVec_sg,rate_sg,gnr_sg,err_sg);
 
 % 3) SVRG
 
