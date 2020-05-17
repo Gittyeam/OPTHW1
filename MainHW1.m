@@ -49,15 +49,15 @@ alpha_svrg = 0.01;  % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
 maxit_gm = 50;
-maxit_sg = 10000;
-maxit_svrg = 10000;
+maxit_sg = 10000;   % 8000 optimal
+maxit_svrg = 10000; % 20000 optimal
 
 % loss and weight update rate for accuracy computation
 rate_gm = 5;
 rate_sg = 500;
 
 % epochs length (SVRG method)
-eplen_svrg = 2500;
+eplen_svrg = 2500;  % 10000 optimal
 
 % 1) GRADIENT DESCENT FIXED STEPSIZE
 disp('*****************************');
