@@ -73,7 +73,7 @@ if(err==0)
     
     % Test accuracy
     
-    %predict
+    % predict
     y_pred=sign(X_test*optw');
     
     % compute accuracy scores
