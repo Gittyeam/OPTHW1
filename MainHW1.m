@@ -59,9 +59,6 @@ rate_sg = 100;
 % epochs length (SVRG method)
 eplen_svrg = 500; % 1000 ideale
 
-% class all open figures (if any)
-close all
-
 %1) GRADIENT DESCENT FIXED STEPSIZE
 disp('*****************************');
 disp('*        GM STANDARD        *');
