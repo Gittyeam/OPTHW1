@@ -50,14 +50,14 @@ alpha_svrg = 0.01;  % step size (SVRG method)
 % maximum number of iterations (use multiple of 100 for the print function)
 maxit_gm = 50;
 maxit_sg = 10000;
-maxit_svrg = 10000; % 2500 ideale
+maxit_svrg = 10000;
 
 % loss and weight update rate for accuracy computation
 rate_gm = 5;
 rate_sg = 500;
 
 % epochs length (SVRG method)
-eplen_svrg = 2500; % 1000 ideale
+eplen_svrg = 2500;
 
 % 1) GRADIENT DESCENT FIXED STEPSIZE
 disp('*****************************');
@@ -94,7 +94,6 @@ disp('*       SVRGM STANDARD      *');
 disp('*****************************');
 
 % call SVRG_rlr
-
 [optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,gnrit_svrg,err_svrg] = ...
 SVRGRLR(X_train,y_train,w_svrg,reg_svrg,alpha_svrg,eplen_svrg,maxit_svrg);
 
@@ -103,6 +102,7 @@ SVRGRLR(X_train,y_train,w_svrg,reg_svrg,alpha_svrg,eplen_svrg,maxit_svrg);
 optw_svrg,wVec_svrg,it_svrg,loss_svrg,ttot_svrg,lossVec_svrg,timeVec_svrg,eplen_svrg,gnrit_svrg,err_svrg);
 
 % COMPARE METHODS
+
 if(err_gm+err_sg+err_svrg==0)
     % plot time - loss
     figure
