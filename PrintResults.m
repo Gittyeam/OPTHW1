@@ -1,4 +1,5 @@
-function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,wVec,it,loss,ttot,lossVec,timeVec,rate,err,gnrit)
+function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,...
+          optw,wVec,it,loss,ttot,lossVec,timeVec,rate,gnrit,err)
 
 %--------------------------------------------------------------
 % This function print the results of a method in terms of time,
@@ -8,9 +9,7 @@ function [t,accVec,F1Vec]=PrintResults(name,X_train,X_test,y_train,y_test,optw,w
 if(err==0)
     fprintf(1,strcat(name,' Loss            = %2.3e\n'),loss);
     fprintf(1,strcat(name,' Iterations      = %d\n'),it);
-    if not(strcmp(name,'SGM'))
-       fprintf(1,strcat(name,' ||gr||^2        = %2.3e\n'),gnrit(it));
-    end
+    fprintf(1,strcat(name,' ||gr||^2        = %2.3e\n'),gnrit(end));
     fprintf(1,strcat(name,' CPU time        = %2.3e\n'), ttot);
     
     % plot loss as function of iter and time 
