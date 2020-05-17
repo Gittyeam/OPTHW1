@@ -12,7 +12,7 @@ clear all; close all;
 datagis = load('data.mat');
 data = datagis.gis;
 
-% Train-test split
+% train-test split
 X_train = [data.Xtrain ones(size(data.Xtrain,1),1)];
 X_test = [data.Xtest ones(size(data.Xtest,1),1)];
 y_train = data.ytrain;
@@ -48,23 +48,23 @@ LC_sg = 0.001;      % step size numerator (SGD method)
 alpha_svrg = 0.01;  % step size (SVRG method)
 
 % maximum number of iterations (use multiple of 100 for the print function)
-maxit_gm = 100;
+maxit_gm = 50;
 maxit_sg = 10000;
-maxit_svrg = 3000; % 2500 ideale
+maxit_svrg = 10000; % 2500 ideale
 
 % loss and weight update rate for accuracy computation
 rate_gm = 5;
 rate_sg = 500;
 
 % epochs length (SVRG method)
-eplen_svrg = 500; % 1000 ideale
+eplen_svrg = 2500; % 1000 ideale
 
-%1) GRADIENT DESCENT FIXED STEPSIZE
+% 1) GRADIENT DESCENT FIXED STEPSIZE
 disp('*****************************');
 disp('*        GM STANDARD        *');
 disp('*****************************');
 
-%call GD_rlr
+% call GD_rlr
 
 [optw_gm,wVec_gm,it_gm,loss_gm,ttot_gm,lossVec_gm,timeVec_gm,gnrit_gm,err_gm] = ...
 GDRLR(X_train,y_train,w_gm,reg_gm,L_gm,maxit_gm,rate_gm);
